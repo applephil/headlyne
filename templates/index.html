@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <script src="http://www.webglearth.com/v2/api.js"></script>
+    <script>
+    function initialize() {
+      data = []
+
+      var options = {atmosphere: true, center: [0, 0], zoom: 0};
+      var earth = new WE.map('earth_div', options);
+      WE.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg', {
+        subdomains: '1234',
+        attribution: 'Tiles Courtesy of MapQuest'
+      }).addTo(earth);
+      var interval = setInterval(function() {
+        var c = earth.getPosition();
+        earth.setCenter([c[0], c[1] + 0.3]);
+      }, 50);
+
+      var marker 
+      
+      {% for marker in markers %}
+      marker = WE.marker({{marker.geo}}).addTo(earth);
+      marker.bindPopup('<a href="{{marker.link}}" target="_blank"><b>{{marker.title}}</b></a>', {maxWidth: 150, closeButton: true}).openPopup();
+      {% endfor %}
+
+      //var marker = WE.marker([51.5, -0.09]).addTo(earth);
+      //marker.bindPopup("<b>Hello world!</b><br>I am a popup.<br /><span style='font-size:10px;color:#999'>Tip: Another popup is hidden in Cairo..</span>", {maxWidth: 150, closeButton: true}).openPopup();
+          
+      earth.on('click', function(){
+          clearInterval(interval);
+      });
+    
+    }
+    </script>
+
+    <style>
+      html, body{padding: 0; margin: 0;}
+      #earth_div{top: 0; right: 0; bottom: 0; left: 0; 
+                 background-color: #000; position: absolute !important;}
+      </style>
+
+
+      <title>Headlyne.me | Top Headlines Around the World Now</title>
+    </head>
+    <body onload="initialize()">
+      <div id="earth_div"></div>
+  </body>
+</html>
