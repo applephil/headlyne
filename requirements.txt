@@ -4,7 +4,6 @@ PyRSS2Gen==1.0.0
 Werkzeug==0.9.6
 bdist-mpkg==0.4.4
 beautifulsoup4==4.3.2
-numpy==1.6.2
 pyOpenSSL==0.13
 python-dateutil==1.5
 python-googlegeocoder>=0.2.0
