@@ -122,6 +122,11 @@ def run_alchemy_entity_per_link(articleurl):
             max_pos = relevance.index(max(relevance)) # get nth position of the highest relevancy score
             master_location = (locations[max_pos]) #Use n to get nth position of all location names and store that location name to master_locations
 
+        else:
+            neutral_location = 'Pacific Ocean'
+            neutral_location_decoded = unicode(neutral_location)
+            master_location = neutral_location_decoded
+
     else:
         print('Error in entity extraction call: ', response['statusInfo'])
         neutral_location = 'Pacific Ocean'
@@ -129,6 +134,7 @@ def run_alchemy_entity_per_link(articleurl):
         master_location = neutral_location_decoded
     
     return master_location
+
 
 def get_all_links(page):
     urls = []
@@ -139,6 +145,7 @@ def get_all_links(page):
     for a in soup.find_all('a', 'title may-blank ', href=True):
         urls.append(a['href'])
         master_location = run_alchemy_entity_per_link(a['href'])
+        print(master_location)
         coordinates.append(google(master_location))
         time.sleep(0.1)
     return coordinates, urls

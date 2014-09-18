@@ -14,7 +14,7 @@ def earth():
 	global markers
 	global last_updated_time
 	current_time = time()
-	if current_time - last_updated_time > 3600:
+	if current_time - last_updated_time > 7200:
 		markers = headline.get_all_markers()
 		last_updated_time = current_time
 	return render_template('index.html', markers=markers)
